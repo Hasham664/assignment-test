@@ -95,3 +95,6 @@ export const logout = async (req, res) => {
   });
   sendSuccess(res, 'Logged out successfully');
 };
+
+// in vercel it has some issues with cookies and NOCDE_ENV= production so thats why for now i dont use i simply add
+//  secure true and none its bcz of vercel else i will do proper this production level like using env NODE_ENV 

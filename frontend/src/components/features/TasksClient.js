@@ -150,11 +150,17 @@ export default function TasksClient() {
   const [view, setView] = useState('list');
 
   const handleStatusChange = async (taskId, status) => {
+    const updatedTasks = tasks.map((t) => (t._id === taskId ? { ...t, status } : t));
+
+    mutate(
+      { data: { tasks: updatedTasks } },
+      { revalidate: false }
+    );
+
     try {
       await api.put(`/tasks/${taskId}`, { status });
-      mutate();
-      toast.success('Task status updated');
     } catch (error) {
+      mutate({ data: { tasks } }, { revalidate: false });
       toast.error(error.response?.data?.message || 'Failed to update status');
     }
   };
