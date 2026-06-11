@@ -9,7 +9,7 @@ A full-stack MERN application for managing projects and tasks with role-based ac
 | Frontend | Next.js 16, React 18, Tailwind CSS 4, SWR, Axios |
 | Backend | Express.js, Node.js (ES Modules) |
 | Database | MongoDB with Mongoose |
-| Auth | JWT (JSON Web Tokens), bcrypt |
+| Auth | JWT (HttpOnly Cookies), bcrypt |
 
 ## Getting Started
 
@@ -34,6 +34,7 @@ npm install
 # Create .env file
 cat > .env << EOF
 PORT=4000
+NODE_ENV=development
 MONGODB_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/project_db?retryWrites=true&w=majority
 JWT_SECRET=your_secret_key_here
 FRONTEND_URL=http://localhost:3000
@@ -169,8 +170,9 @@ project-management-tool/
 | Method | Endpoint | Description | Auth |
 |--------|----------|-------------|------|
 | POST | `/api/v1/auth/register` | Register a new user | No |
-| POST | `/api/v1/auth/login` | Login and get JWT | No |
+| POST | `/api/v1/auth/login` | Login, sets HttpOnly cookie | No |
 | GET | `/api/v1/auth/me` | Get current user profile | Yes |
+| POST | `/api/v1/auth/logout` | Clear auth cookie | Yes |
 
 ### User API (Admin Only)
 | Method | Endpoint | Description | Auth |
@@ -218,7 +220,7 @@ project-management-tool/
 
 | Module | Description | Priority |
 |--------|-------------|----------|
-| Authentication | Register, login, JWT tokens, role-based access | High |
+| Authentication | Register, login, JWT via HttpOnly cookies, role-based access | High |
 | User Management | Admin can list users and change roles | Medium |
 | Project Management | CRUD projects, assign developers | High |
 | Task Management | CRUD tasks, status tracking, assignment | High |
@@ -246,11 +248,11 @@ This project was simulated as a three-person team:
 
 ### Team Member A: Authentication & User Management
 - User model with password hashing (bcrypt)
-- JWT authentication middleware
+- JWT authentication via HttpOnly cookies (not localStorage)
 - Role-based authorization middleware
-- Auth API endpoints (register, login, getMe)
+- Auth API endpoints (register, login, getMe, logout)
 - User API endpoints (list, update role, get developers)
-- Login/Register frontend pages
+- Login/Register pages with PasswordInput (eye icon toggle)
 
 ### Team Member B: Project & Task Management
 - Project and Task models with Mongoose relationships
@@ -263,8 +265,8 @@ This project was simulated as a three-person team:
 ### Team Member C: Frontend Integration
 - Next.js App Router with server/client component split
 - SWR hooks for data fetching with caching
-- Axios instance with auth interceptors
-- Reusable UI component library (Button, Input, Select, Card, Modal, Badge)
+- Axios instance with `withCredentials: true` (cookie-based auth)
+- Reusable UI component library (Button, Input, PasswordInput, Select, Card, Modal, Badge)
 - Responsive sidebar layout
 - Protected routes with role-based access
 - Kanban board with drag-and-drop

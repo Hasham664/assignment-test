@@ -27,7 +27,7 @@ export const Button = ({
 }) => {
   return (
     <button
-      className={`inline-flex items-center justify-center font-medium rounded-lg transition-colors
+      className={`inline-flex items-center justify-center font-medium rounded-lg transition-colors cursor-pointer
         ${variants[variant]} ${sizes[size]}
         ${disabled || isLoading ? 'opacity-50 cursor-not-allowed' : ''}
         ${className}`}

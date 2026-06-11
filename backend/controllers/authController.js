@@ -3,6 +3,14 @@ import { User } from '../models/index.js';
 import { sendSuccess, sendError } from '../utils/response.js';
 import { validate } from '../utils/validate.js';
 
+const COOKIE_OPTIONS = {
+  httpOnly: true,
+  secure: process.env.NODE_ENV === 'production',
+  sameSite: 'lax',
+  maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+  path: '/',
+};
+
 const generateToken = (user) =>
   jwt.sign({ _id: user._id, role: user.role, email: user.email }, process.env.JWT_SECRET, {
     expiresIn: '7d',
@@ -14,6 +22,10 @@ const sanitizeUser = (user) => ({
   email: user.email,
   role: user.role,
 });
+
+const setTokenCookie = (res, token) => {
+  res.cookie('token', token, COOKIE_OPTIONS);
+};
 
 export const register = async (req, res, next) => {
   try {
@@ -27,7 +39,8 @@ export const register = async (req, res, next) => {
     const user = await User.create({ name, email, password, role });
     const token = generateToken(user);
 
-    sendSuccess(res, 'Registration successful', { user: sanitizeUser(user), token }, 201);
+    setTokenCookie(res, token);
+    sendSuccess(res, 'Registration successful', { user: sanitizeUser(user) }, 201);
   } catch (err) {
     next(err);
   }
@@ -45,7 +58,9 @@ export const login = async (req, res, next) => {
     }
 
     const token = generateToken(user);
-    sendSuccess(res, 'Login successful', { user: sanitizeUser(user), token });
+
+    setTokenCookie(res, token);
+    sendSuccess(res, 'Login successful', { user: sanitizeUser(user) });
   } catch (err) {
     next(err);
   }
@@ -60,4 +75,9 @@ export const getMe = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
+};
+
+export const logout = async (req, res) => {
+  res.cookie('token', '', { httpOnly: true, expires: new Date(0), path: '/' });
+  sendSuccess(res, 'Logged out successfully');
 };

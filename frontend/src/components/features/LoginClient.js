@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
+import { PasswordInput } from '@/components/ui/PasswordInput';
 import toast from 'react-hot-toast';
 
 export default function LoginClient() {
@@ -47,9 +48,8 @@ export default function LoginClient() {
               placeholder="Enter your email"
               required
             />
-            <Input
+            <PasswordInput
               label="Password"
-              type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter your password"
@@ -63,7 +63,7 @@ export default function LoginClient() {
 
           <p className="text-center text-sm text-gray-600">
             Don&apos;t have an account?{' '}
-            <Link href="/register" className="text-blue-600 hover:text-blue-700 font-medium">
+            <Link href="/register" className="text-blue-600 hover:text-blue-700 font-medium cursor-pointer">
               Register
             </Link>
           </p>
