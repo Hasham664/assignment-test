@@ -3,11 +3,13 @@ import { User } from '../models/index.js';
 import { sendSuccess, sendError } from '../utils/response.js';
 import { validate } from '../utils/validate.js';
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 const COOKIE_OPTIONS = {
   httpOnly: true,
-  secure: process.env.NODE_ENV === 'production',
-  sameSite: 'lax',
-  maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+  secure: isProduction,
+  sameSite: isProduction ? 'none' : 'lax',
+  maxAge: 7 * 24 * 60 * 60 * 1000,
   path: '/',
 };
 
@@ -78,6 +80,12 @@ export const getMe = async (req, res, next) => {
 };
 
 export const logout = async (req, res) => {
-  res.cookie('token', '', { httpOnly: true, expires: new Date(0), path: '/' });
+  res.cookie('token', '', {
+    httpOnly: true,
+    secure: isProduction,
+    sameSite: isProduction ? 'none' : 'lax',
+    expires: new Date(0),
+    path: '/',
+  });
   sendSuccess(res, 'Logged out successfully');
 };

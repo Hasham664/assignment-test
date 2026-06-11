@@ -14,13 +14,22 @@ import {
 } from './routes/index.js';
 
 const app = express();
-const port = process.env.PORT || 4000;
 
 app.set('trust proxy', 1);
 
+const allowedOrigins = process.env.FRONTEND_URL
+  ? process.env.FRONTEND_URL.split(',')
+  : ['http://localhost:3000'];
+
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
@@ -61,14 +70,23 @@ app.get('/', (req, res) => {
 
 app.use(errorHandler);
 
-connectDB()
-  .then(() => {
-    console.log('MongoDB connected successfully');
-    app.listen(port, () => {
-      console.log(`Server running on port ${port}`);
+// Local development
+const port = process.env.PORT || 4000;
+
+if (process.env.NODE_ENV !== 'production') {
+  connectDB()
+    .then(() => {
+      console.log('MongoDB connected successfully');
+      app.listen(port, () => {
+        console.log(`Server running on port ${port}`);
+      });
+    })
+    .catch((err) => {
+      console.error('MongoDB connection failed:', err);
+      process.exit(1);
     });
-  })
-  .catch((err) => {
-    console.error('MongoDB connection failed:', err);
-    process.exit(1);
-  });
+} else {
+  connectDB().catch(console.error);
+}
+
+export default app;
