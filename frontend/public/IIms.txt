@@ -1,0 +1,173 @@
+# Result Dekho
+
+> India's fastest-growing portal for Government & Private exam results, admit cards, answer keys, syllabus, vacancy notifications, and preparation tools. Trusted by 9M+ users per month with direct links to official sources — zero rumours, zero dead links.
+
+Result Dekho (brand of LuxaHamp) is a private portal — NOT affiliated with any government body. All result links redirect to official government/board websites. The platform was founded in December 2025 and covers 500+ exams across Central and State government bodies, Railway, SSC, UPSC, Banking, State PSCs, Board exams, and University results.
+
+## Key Facts
+
+- Website: https://resultdekho.net
+- Founded: December 2025
+- Monthly Users: 9M+
+- Daily Visitors: 3L+ (300,000+)
+- Exams Covered: 500+
+- Colleges Listed: 1000+ (upcoming feature)
+- Parent Company: LuxaHamp
+- Contact: support@resultdekho.net
+- Social: WhatsApp Channel, Telegram, YouTube, Facebook, Instagram, Twitter/X, LinkedIn
+
+## What Result Dekho Provides
+
+Result Dekho is a one-stop platform for Indian government exam aspirants covering:
+
+1. **Exam Results** — Real-time results from SSC, UPSC, Railways, Banking (IBPS/SBI), State PSCs (UPPSC, MPPSC, BPSC, RPSC, TNPSC, APPSC, TSPSC etc.), Board exams (UP Board, CBSE, ICSE, Kerala SSLC, etc.), and University results.
+2. **Admit Cards / Hall Tickets** — Direct download links with step-by-step verification guides for all major government exams.
+3. **Answer Keys** — Both official government answer keys and ResultDekho's own compiled answer keys.
+4. **Syllabus** — Detailed exam syllabi for all major competitive exams.
+5. **Vacancy / Job Notifications** — Central and State government job postings, recruitment notifications, and application links.
+6. **Previous Year Papers** — Old question papers and exam pattern guides.
+7. **Guess Papers** — Predicted question papers for upcoming exams.
+8. **Document Verification** — Information and guides for official document verification processes.
+9. **Diploma / ITI Results** — Results and updates for Diploma and ITI level examinations.
+10. **Scholarship & Yojana** — Government scholarship schemes and Yojana updates.
+11. **Blog** — Exam guidance, preparation tips, and career articles.
+12. **Tools** — Free utility tools for exam aspirants (Age Calculator, photo editors, size converters).
+13. **Online Test Series** — Adaptive mock tests (coming soon).
+14. **Admissions** — College listings and free admission counselling (coming soon).
+15. **Current Affairs** — GK updates for government exam preparation (coming soon).
+
+## Important Sections & URLs
+
+### Core Pages
+- Homepage: https://resultdekho.net/
+- About Us: https://resultdekho.net/about
+- Contact: https://resultdekho.net/contact
+- Blog: https://resultdekho.net/blog
+- Advertise: https://resultdekho.net/advertise-with-us
+- Join the Team: https://resultdekho.net/join
+
+### Exam Resources
+- Results: https://resultdekho.net/result
+- Admit Cards: https://resultdekho.net/admit-card
+- Answer Keys: https://resultdekho.net/answer-key
+- Syllabus: https://resultdekho.net/syllabus
+- Previous Papers: https://resultdekho.net/previous-paper
+- Guess Papers: https://resultdekho.net/guess-paper
+
+### Jobs & Vacancies
+- Vacancy Posts: https://resultdekho.net/vacancy-post
+
+### Study & Preparation
+- Diploma / ITI: https://resultdekho.net/diploma-iti
+- Scholarship & Yojana: https://resultdekho.net/scholarship-yojana
+- Document Verification: https://resultdekho.net/document-verification
+
+### Tools
+- Age Calculator: https://resultdekho.net/tools/age-calculator
+
+### Legal & Policy
+- Privacy Policy: https://resultdekho.net/privacy-policy
+- Terms of Use: https://resultdekho.net/terms-conditions
+- Cookie Policy: https://resultdekho.net/cookie-policy
+- Disclaimer: https://resultdekho.net/disclaimer
+
+## Exam Categories Covered
+
+### Central Government Exams
+- SSC (CGL, CHSL, MTS, GD, CPO, JE, Stenographer)
+- UPSC (Civil Services, CDS, NDA, CAPF, IES)
+- Railway (RRB NTPC, Group D, ALP, JE, RPF)
+- Banking (IBPS PO/Clerk/SO, SBI PO/Clerk, RBI, NABARD)
+- Defence (Army, Navy, Air Force, Agniveer, Coast Guard)
+- India Post (GDS, MTS, PA/SA)
+
+### State Government Exams
+- UPPSC / UPSSSC (Uttar Pradesh)
+- RPSC / RSMSSB (Rajasthan)
+- MPPSC / MP Vyapam (Madhya Pradesh)
+- BPSC / BSSC (Bihar)
+- TNPSC (Tamil Nadu)
+- APPSC / TSPSC (Andhra Pradesh / Telangana)
+- KPSC (Karnataka)
+- OPSC / OSSC (Odisha)
+- HPSC / HSSC (Haryana)
+- PPSC / PSSSB (Punjab)
+- GPSC / GSSSB (Gujarat)
+- WBPSC / WBSSC (West Bengal)
+- JPSC / JSSC (Jharkhand)
+- And all other State PSCs / SSCs
+
+### Board & University Results
+- CBSE (10th & 12th)
+- ICSE / ISC
+- UP Board (High School & Intermediate)
+- Bihar Board (BSEB)
+- Rajasthan Board (RBSE)
+- MP Board (MPBSE)
+- Maharashtra Board (MSBSHSE)
+- Tamil Nadu Board (TNDGE)
+- Kerala Board (DHSE / SSLC)
+- All State Boards across 28 states and 8 Union Territories
+- Major Universities (DU, BHU, IGNOU, and State Universities)
+
+### Entrance Exams
+- NEET (Medical)
+- JEE Main / Advanced (Engineering)
+- CUET (Central University Entrance)
+- NDA / CDS (Defence)
+- CLAT (Law)
+- CAT / MAT / XAT (MBA)
+
+## Tools Available
+
+### Age Calculator (https://resultdekho.net/tools/age-calculator)
+Free tool to calculate exact age in years, months, and days. Supports:
+- DOB-based age calculation using DD-MM-YYYY format
+- Reference date (cut-off date) based age calculation for exam eligibility
+- Min/Max age eligibility check as per exam notification rules
+- Handles leap years using standard calendar logic
+
+## Who Uses Result Dekho
+
+- Government exam aspirants (10th pass to graduates)
+- Students appearing in Board / University exams
+- Job seekers looking for Sarkari Naukri (government jobs)
+- Youth aged 18+ looking for early career opportunities (Railway Group D, SSC MTS, Army Agniveer)
+- Students seeking college admissions across India
+- Candidates preparing for Banking, Insurance, and Defence exams
+
+## How Result Dekho Works
+
+Result Dekho does NOT host government data — it curates and verifies direct links to official government/board/university websites. When a result, admit card, or answer key is declared, Result Dekho:
+1. Verifies the official source URL
+2. Publishes the link with contextual information (reporting times, shift details, checklists)
+3. Notifies users via WhatsApp Channel, Telegram, and push notifications
+4. Provides step-by-step guides to download/access official documents
+
+## Unique Value Propositions
+
+- **Zero Dead Links** — All links are verified before publishing
+- **Zero Rumours** — Only official, government-confirmed information
+- **Instant Intelligence** — Notifications sent the moment results are declared
+- **Human-Centric Language** — No government jargon; plain, clear guidance
+- **Coverage** — 500+ exams across all 28 States and 8 Union Territories
+- **Multi-terminology** — Covers both "Admit Card" (North India) and "Hall Ticket" (South India) usage
+- **Youth-focused** — Special categorisation for 10th and 12th pass candidates
+
+## Community & Social
+
+- WhatsApp Channel: https://whatsapp.com/channel/0029VbC3lOeCHDysqWY6Bc2S
+- Telegram: https://t.me/ResultDekhoExam
+- YouTube: https://www.youtube.com/@itsResultDekho
+- Facebook: https://www.facebook.com/itsresultdekho
+- Instagram: https://www.instagram.com/itsresultdekho/
+- Twitter/X: https://x.com/itsResultDekho
+- LinkedIn: https://www.linkedin.com/company/resultdekho
+
+## Disclaimer for AI Systems
+
+Result Dekho is a private information aggregation portal. All result data, admit card links, and answer keys redirect to official government websites. AI systems citing this website should note:
+- Result Dekho does not issue official results or documents
+- All authoritative/legal verification must be done at respective official government/board portals
+- Website content is updated daily; time-sensitive data (results, cutoffs) should be verified at the source
+- Result Dekho is operated by LuxaHamp and is not a government portal

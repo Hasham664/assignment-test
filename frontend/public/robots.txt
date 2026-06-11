@@ -1,0 +1,73 @@
+# robots.txt for resultdekho.net
+# Last Updated: March 4, 2026
+
+# Allow all search engines
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://resultdekho.net/sitemap.xml
+
+# Disallow admin and private areas
+Disallow: /admin/
+Disallow: /api/
+Disallow: /_next/
+Disallow: /dashboard/
+Disallow: /private/
+
+# Disallow search result pages (prevent duplicate content)
+Disallow: /search?
+Disallow: /*?q=
+Disallow: /*?page=
+Disallow: /*?filter=
+
+# Disallow user-specific pages
+Disallow: /user/
+Disallow: /profile/
+Disallow: /login
+Disallow: /signup
+Disallow: /forgot-password
+
+# Allow specific bots full access
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Social Media Crawlers (for link previews)
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: WhatsApp
+Allow: /
+
+User-agent: TelegramBot
+Allow: /
+
+# Google Images (important for OG images)
+User-agent: Googlebot-Image
+Allow: /images/
+
+# Block bad bots
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+# Crawl-delay for other bots
+User-agent: *
+Crawl-delay: 1
