@@ -21,8 +21,8 @@ A full-stack MERN application for managing projects and tasks with role-based ac
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/project-management-tool.git
-cd project-management-tool
+git clone https://github.com/Hasham664/assignment-test.git
+cd projec...
 ```
 
 ### Backend Setup
