@@ -1,40 +1,33 @@
 import jwt from 'jsonwebtoken';
-import { validationResult } from 'express-validator';
 import { User } from '../models/index.js';
+import { sendSuccess, sendError } from '../utils/response.js';
+import { validate } from '../utils/validate.js';
 
-const generateToken = (user) => {
-  return jwt.sign(
-    { _id: user._id, role: user.role, email: user.email },
-    process.env.JWT_SECRET,
-    { expiresIn: '7d' }
-  );
-};
+const generateToken = (user) =>
+  jwt.sign({ _id: user._id, role: user.role, email: user.email }, process.env.JWT_SECRET, {
+    expiresIn: '7d',
+  });
+
+const sanitizeUser = (user) => ({
+  _id: user._id,
+  name: user.name,
+  email: user.email,
+  role: user.role,
+});
 
 export const register = async (req, res, next) => {
   try {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ success: false, message: errors.array()[0].msg });
-    }
+    if (!validate(req, res)) return;
 
     const { name, email, password, role } = req.body;
 
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.status(400).json({ success: false, message: 'Email already registered' });
-    }
+    const existing = await User.findOne({ email });
+    if (existing) return sendError(res, 'Email already registered', 400);
 
     const user = await User.create({ name, email, password, role });
     const token = generateToken(user);
 
-    res.status(201).json({
-      success: true,
-      message: 'Registration successful',
-      data: {
-        user: { _id: user._id, name: user.name, email: user.email, role: user.role },
-        token,
-      },
-    });
+    sendSuccess(res, 'Registration successful', { user: sanitizeUser(user), token }, 201);
   } catch (err) {
     next(err);
   }
@@ -42,33 +35,17 @@ export const register = async (req, res, next) => {
 
 export const login = async (req, res, next) => {
   try {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ success: false, message: errors.array()[0].msg });
-    }
+    if (!validate(req, res)) return;
 
     const { email, password } = req.body;
 
     const user = await User.findOne({ email }).select('+password');
-    if (!user) {
-      return res.status(401).json({ success: false, message: 'Invalid email or password' });
-    }
-
-    const isPasswordValid = await user.comparePassword(password);
-    if (!isPasswordValid) {
-      return res.status(401).json({ success: false, message: 'Invalid email or password' });
+    if (!user || !(await user.comparePassword(password))) {
+      return sendError(res, 'Invalid email or password', 401);
     }
 
     const token = generateToken(user);
-
-    res.json({
-      success: true,
-      message: 'Login successful',
-      data: {
-        user: { _id: user._id, name: user.name, email: user.email, role: user.role },
-        token,
-      },
-    });
+    sendSuccess(res, 'Login successful', { user: sanitizeUser(user), token });
   } catch (err) {
     next(err);
   }
@@ -77,15 +54,9 @@ export const login = async (req, res, next) => {
 export const getMe = async (req, res, next) => {
   try {
     const user = await User.findById(req.user._id);
-    if (!user) {
-      return res.status(404).json({ success: false, message: 'User not found' });
-    }
+    if (!user) return sendError(res, 'User not found', 404);
 
-    res.json({
-      success: true,
-      message: 'User fetched successfully',
-      data: { user },
-    });
+    sendSuccess(res, 'User fetched successfully', { user });
   } catch (err) {
     next(err);
   }

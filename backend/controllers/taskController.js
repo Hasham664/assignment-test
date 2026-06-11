@@ -1,18 +1,19 @@
-import { validationResult } from 'express-validator';
 import { Task, Project } from '../models/index.js';
+import { sendSuccess, sendError } from '../utils/response.js';
+import { validate } from '../utils/validate.js';
+import { POPULATE_USER, POPULATE_PROJECT } from '../utils/constants.js';
+
+const populateTask = (query) =>
+  query.populate('assignedTo', POPULATE_USER).populate('project', POPULATE_PROJECT);
 
 export const createTask = async (req, res, next) => {
   try {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ success: false, message: errors.array()[0].msg });
-    }
+    if (!validate(req, res)) return;
 
     const { title, description, project, assignedTo, priority, dueDate } = req.body;
 
-    const projectExists = await Project.findById(project);
-    if (!projectExists) {
-      return res.status(404).json({ success: false, message: 'Project not found' });
+    if (!(await Project.findById(project))) {
+      return sendError(res, 'Project not found', 404);
     }
 
     const task = await Task.create({
@@ -25,15 +26,8 @@ export const createTask = async (req, res, next) => {
       createdBy: req.user._id,
     });
 
-    const populatedTask = await Task.findById(task._id)
-      .populate('assignedTo', 'name email')
-      .populate('project', 'title');
-
-    res.status(201).json({
-      success: true,
-      message: 'Task created successfully',
-      data: { task: populatedTask },
-    });
+    const populatedTask = await populateTask(Task.findById(task._id));
+    sendSuccess(res, 'Task created successfully', { task: populatedTask }, 201);
   } catch (err) {
     next(err);
   }
@@ -41,25 +35,10 @@ export const createTask = async (req, res, next) => {
 
 export const getTasks = async (req, res, next) => {
   try {
-    let tasks;
+    const filter = req.user.role === 'admin' ? {} : { assignedTo: req.user._id };
+    const tasks = await populateTask(Task.find(filter).sort({ createdAt: -1 }));
 
-    if (req.user.role === 'admin') {
-      tasks = await Task.find()
-        .populate('assignedTo', 'name email')
-        .populate('project', 'title')
-        .sort({ createdAt: -1 });
-    } else {
-      tasks = await Task.find({ assignedTo: req.user._id })
-        .populate('assignedTo', 'name email')
-        .populate('project', 'title')
-        .sort({ createdAt: -1 });
-    }
-
-    res.json({
-      success: true,
-      message: 'Tasks fetched successfully',
-      data: { tasks },
-    });
+    sendSuccess(res, 'Tasks fetched successfully', { tasks });
   } catch (err) {
     next(err);
   }
@@ -67,16 +46,11 @@ export const getTasks = async (req, res, next) => {
 
 export const getTasksByProject = async (req, res, next) => {
   try {
-    const tasks = await Task.find({ project: req.params.projectId })
-      .populate('assignedTo', 'name email')
-      .populate('project', 'title')
-      .sort({ createdAt: -1 });
+    const tasks = await populateTask(
+      Task.find({ project: req.params.projectId }).sort({ createdAt: -1 })
+    );
 
-    res.json({
-      success: true,
-      message: 'Tasks fetched successfully',
-      data: { tasks },
-    });
+    sendSuccess(res, 'Tasks fetched successfully', { tasks });
   } catch (err) {
     next(err);
   }
@@ -84,46 +58,23 @@ export const getTasksByProject = async (req, res, next) => {
 
 export const updateTask = async (req, res, next) => {
   try {
-    const { title, description, status, priority, assignedTo, dueDate } = req.body;
-
     const task = await Task.findById(req.params.id);
-    if (!task) {
-      return res.status(404).json({ success: false, message: 'Task not found' });
-    }
+    if (!task) return sendError(res, 'Task not found', 404);
 
     if (req.user.role !== 'admin' && task.assignedTo.toString() !== req.user._id) {
-      return res.status(403).json({ success: false, message: 'Access denied' });
+      return sendError(res, 'Access denied', 403);
     }
 
-    if (req.user.role !== 'admin') {
-      const updatedTask = await Task.findByIdAndUpdate(
-        req.params.id,
-        { status },
-        { new: true, runValidators: true }
-      )
-        .populate('assignedTo', 'name email')
-        .populate('project', 'title');
+    const isAdmin = req.user.role === 'admin';
+    const updates = isAdmin
+      ? req.body
+      : { status: req.body.status };
 
-      return res.json({
-        success: true,
-        message: 'Task status updated successfully',
-        data: { task: updatedTask },
-      });
-    }
+    const updatedTask = await populateTask(
+      Task.findByIdAndUpdate(req.params.id, updates, { new: true, runValidators: true })
+    );
 
-    const updatedTask = await Task.findByIdAndUpdate(
-      req.params.id,
-      { title, description, status, priority, assignedTo, dueDate },
-      { new: true, runValidators: true }
-    )
-      .populate('assignedTo', 'name email')
-      .populate('project', 'title');
-
-    res.json({
-      success: true,
-      message: 'Task updated successfully',
-      data: { task: updatedTask },
-    });
+    sendSuccess(res, 'Task updated successfully', { task: updatedTask });
   } catch (err) {
     next(err);
   }
@@ -132,15 +83,9 @@ export const updateTask = async (req, res, next) => {
 export const deleteTask = async (req, res, next) => {
   try {
     const task = await Task.findByIdAndDelete(req.params.id);
+    if (!task) return sendError(res, 'Task not found', 404);
 
-    if (!task) {
-      return res.status(404).json({ success: false, message: 'Task not found' });
-    }
-
-    res.json({
-      success: true,
-      message: 'Task deleted successfully',
-    });
+    sendSuccess(res, 'Task deleted successfully');
   } catch (err) {
     next(err);
   }
