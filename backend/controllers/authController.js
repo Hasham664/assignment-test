@@ -3,16 +3,22 @@ import { User } from '../models/index.js';
 import { sendSuccess, sendError } from '../utils/response.js';
 import { validate } from '../utils/validate.js';
 
-const isProduction = process.env.NODE_ENV === 'production';
+// const isProduction = process.env.NODE_ENV === 'production';
 
+// const COOKIE_OPTIONS = {
+//   httpOnly: true,
+//   secure: isProduction,
+//   sameSite: isProduction ? 'none' : 'lax',
+//   maxAge: 7 * 24 * 60 * 60 * 1000,
+//   path: '/',
+// };
 const COOKIE_OPTIONS = {
   httpOnly: true,
-  secure: isProduction,
-  sameSite: isProduction ? 'none' : 'lax',
-  maxAge: 7 * 24 * 60 * 60 * 1000,
-  path: '/',
+  secure: true,
+  sameSite: "none",
+  maxAge: 60 * 60 * 24 * 7, // 7 days
+  path: "/",
 };
-
 const generateToken = (user) =>
   jwt.sign({ _id: user._id, role: user.role, email: user.email }, process.env.JWT_SECRET, {
     expiresIn: '7d',
@@ -82,8 +88,8 @@ export const getMe = async (req, res, next) => {
 export const logout = async (req, res) => {
   res.cookie('token', '', {
     httpOnly: true,
-    secure: isProduction,
-    sameSite: isProduction ? 'none' : 'lax',
+    secure: true,
+    sameSite: "none",
     expires: new Date(0),
     path: '/',
   });
